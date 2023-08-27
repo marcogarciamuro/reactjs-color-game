@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
 
 const RandomColor = (props) => {
 	function rgbToHex(r, g, b) {
@@ -29,26 +28,32 @@ const RandomColor = (props) => {
 	}
 
 	const [colorToMatch, setColorToMatch] = useState();
+
 	useEffect(() => {
-		setColorToMatch(getNewColorHex());
+		const interval = setInterval(
+			() => setColorToMatch(getNewColorHex()),
+			10000
+		);
+		return () => {
+			clearInterval(interval);
+		};
 	}, []);
 
-	function handleColorChange() {
-		setColorToMatch(getNewColorHex());
-	}
+	// function handleColorChange() {
+	// 	setColorToMatch(getNewColorHex());
+	// }
 
 	return (
-		<div>
-			{colorToMatch}
-			<div
-				style={{
-					display: "flex",
-					backgroundColor: colorToMatch,
-					width: "100px",
-					height: "100px",
-				}}
-			></div>
-			<Button onClick={() => handleColorChange()}>Change Color</Button>
+		<div
+			style={{
+				display: "flex",
+				backgroundColor: colorToMatch,
+				width: "100px",
+				height: "100px",
+				borderRadius: "10px",
+			}}
+		>
+			random color
 		</div>
 	);
 };

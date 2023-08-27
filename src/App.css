@@ -44,3 +44,10 @@
 .custom-range-slider .range-slider__range[data-active] {
   height: 16px;
 }
+
+#gradient-box {
+  background-image: linear-gradient(to bottom right, red, orange, yellow, green, blue, indigo, violet);
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+}

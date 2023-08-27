@@ -9,6 +9,7 @@ function CurrentColor(props) {
 				backgroundColor: `rgb(${props.redValueInput}, ${props.greenValueInput}, ${props.blueValueInput})`,
 				width: "100px",
 				height: "100px",
+				borderRadius: "10px",
 			}}
 		>
 			current color
