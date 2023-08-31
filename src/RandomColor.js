@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
+import { useRandomColor, useTimer, useGameStatus } from "./GameContext";
 
-const RandomColor = (props) => {
+function RandomColor() {
+	const { setRedValueTarget, setGreenValueTarget, setBlueValueTarget } =
+		useRandomColor();
+
+	const { roundEnded } = useGameStatus();
+	const { timer } = useTimer();
 	function rgbToHex(r, g, b) {
 		return (
 			"#" +
@@ -15,47 +21,35 @@ const RandomColor = (props) => {
 
 	const getColorValue = () => Math.floor(Math.random() * 256);
 
-	function getNewColorHex() {
-		const color = {
-			r: getColorValue(),
-			g: getColorValue(),
-			b: getColorValue(),
-		};
-		props.setRedValueTarget(color.r);
-		props.setGreenValueTarget(color.g);
-		props.setBlueValueTarget(color.b);
-		return rgbToHex(color.r, color.g, color.b);
-	}
-
 	const [colorToMatch, setColorToMatch] = useState();
 
 	useEffect(() => {
-		const interval = setInterval(
-			() => setColorToMatch(getNewColorHex()),
-			10000
-		);
-		return () => {
-			clearInterval(interval);
-		};
-	}, []);
-
-	// function handleColorChange() {
-	// 	setColorToMatch(getNewColorHex());
-	// }
+		function getNewColorHex() {
+			const color = {
+				r: getColorValue(),
+				g: getColorValue(),
+				b: getColorValue(),
+			};
+			setRedValueTarget(color.r);
+			setGreenValueTarget(color.g);
+			setBlueValueTarget(color.b);
+			return rgbToHex(color.r, color.g, color.b);
+		}
+		if (timer === "00:15") setColorToMatch(getNewColorHex());
+	}, [timer, setBlueValueTarget, setGreenValueTarget, setRedValueTarget]);
 
 	return (
 		<div
+			className={`color-block ${
+				roundEnded ? "move-block-right" : ""
+			} align-items-center px-2`}
 			style={{
-				display: "flex",
 				backgroundColor: colorToMatch,
-				width: "100px",
-				height: "100px",
-				borderRadius: "10px",
 			}}
 		>
-			random color
+			Target Color
 		</div>
 	);
-};
+}
 
 export default RandomColor;
