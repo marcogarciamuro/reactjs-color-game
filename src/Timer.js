@@ -1,10 +1,20 @@
 import React from "react";
-import { useTimer } from "./GameContext";
+import { useTimer, useTheme } from "./GameContext";
 
 function Timer() {
 	const { timer } = useTimer();
+	const { themeIsDark } = useTheme();
 
-	return <h2 style={{ fontFamily: "digital-clock-font" }}>{timer}</h2>;
+	return (
+		<h1
+			style={{
+				fontFamily: "digital-clock-font",
+				color: themeIsDark ? "#FFFFFF" : "#121212",
+			}}
+		>
+			{timer}
+		</h1>
+	);
 }
 
 export default Timer;

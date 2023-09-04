@@ -1,11 +1,13 @@
 import React from "react";
-import { useCurrentColor, useRandomColor } from "./GameContext";
+import { useCurrentColor, useRandomColor, useTheme } from "./GameContext";
 
 function ColorDifference() {
 	const { redValueInput, greenValueInput, blueValueInput } =
 		useCurrentColor();
 	const { redValueTarget, greenValueTarget, blueValueTarget } =
 		useRandomColor();
+
+	const { themeIsDark } = useTheme();
 
 	function getColorAccuracy(colorValueInput, colorValueTarget) {
 		return 1 - Math.abs(colorValueInput - colorValueTarget) / 255;
@@ -41,7 +43,14 @@ function ColorDifference() {
 
 	const totalAccuracyPercent = Math.round(totalAccuracy * 100);
 
-	return <div className="mb-2">Accuracy: {totalAccuracyPercent}%</div>;
+	return (
+		<div
+			className="mb-2"
+			style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
+		>
+			Accuracy: {totalAccuracyPercent}%
+		</div>
+	);
 }
 
 export default ColorDifference;

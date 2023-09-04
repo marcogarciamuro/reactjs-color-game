@@ -4,12 +4,16 @@ import RandomColor from "./RandomColor";
 import CurrentColor from "./CurrentColor";
 import GradientColor from "./GradientColor";
 import Timer from "./Timer";
-import { useGameStatus } from "./GameContext";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Slider from "./Slider";
 import Button from "react-bootstrap/Button";
-import { useTimer, useCurrentColor } from "./GameContext";
+import {
+	useTimer,
+	useCurrentColor,
+	useGameStatus,
+	useTheme,
+} from "./GameContext";
 import ColorDifference from "./ColorDifference";
 
 function Home() {
@@ -18,6 +22,8 @@ function Home() {
 	const { initializeTimer } = useTimer();
 	const { setRedValueInput, setGreenValueInput, setBlueValueInput } =
 		useCurrentColor();
+
+	const { themeIsDark, setThemeIsDark } = useTheme();
 
 	function handleNextRoundButtonClick() {
 		initializeTimer();
@@ -31,10 +37,32 @@ function Home() {
 		initializeTimer();
 		setGameStarted(true);
 	}
+
+	function toggleTheme() {
+		setThemeIsDark((currentTheme) => {
+			return !currentTheme;
+		});
+	}
+
 	console.log("Round ended: " + roundEnded);
 	return (
-		<Container className="flex text-center justify-content-center p-5">
-			<h1 className="mb-3">The Color Matching Game</h1>
+		<Container
+			fluid
+			className="text-center justify-content-center p-5"
+			style={{
+				backgroundColor: themeIsDark ? "#121212" : "#FFFFFF",
+				minHeight: "100vh",
+			}}
+		>
+			<Button onClick={toggleTheme}>
+				{themeIsDark ? "Light Mode" : "Dark Mode"}
+			</Button>
+			<h1
+				className="mb-3"
+				style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
+			>
+				The Color Matching Game
+			</h1>
 			{gameStarted ? (
 				// if round is ongoing
 				!roundEnded ? (
@@ -58,7 +86,7 @@ function Home() {
 							}}
 						>
 							<Button
-								className="mb-3"
+								className="mb-2"
 								onClick={handleNextRoundButtonClick}
 							>
 								Next Round
