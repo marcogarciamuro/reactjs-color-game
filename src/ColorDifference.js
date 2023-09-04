@@ -8,28 +8,6 @@ function ColorDifference() {
 		useRandomColor();
 
 	function getColorAccuracy(colorValueInput, colorValueTarget) {
-		// solves special case where input and target are both 0,
-		// preventing an undefined result from division
-		// if (colorValueInput === colorValueTarget) {
-		// 	return 1.0;
-		// }
-
-		// // if input or target are 0, then perform special formula
-		// if (colorValueInput === 0 || colorValueTarget === 0) {
-		// 	return 1 - (colorValueInput + colorValueTarget) / 255;
-		// }
-
-		// // if neither input or target are 0,
-		// // and input is less than target, divide input by target
-		// else if (colorValueInput < colorValueTarget) {
-		// 	return colorValueInput / colorValueTarget;
-		// }
-
-		// // if neither input or target are 0,
-		// // and input is greater than target, divide target by input
-		// else if (colorValueInput > colorValueTarget) {
-		// 	return colorValueTarget / colorValueInput;
-		// }
 		return 1 - Math.abs(colorValueInput - colorValueTarget) / 255;
 	}
 
@@ -63,7 +41,7 @@ function ColorDifference() {
 
 	const totalAccuracyPercent = Math.round(totalAccuracy * 100);
 
-	return <div>Accuracy: {totalAccuracyPercent}%</div>;
+	return <div className="mb-2">Accuracy: {totalAccuracyPercent}%</div>;
 }
 
 export default ColorDifference;

@@ -36,31 +36,47 @@ function Home() {
 		<Container className="flex text-center justify-content-center p-5">
 			<h1 className="mb-3">The Color Matching Game</h1>
 			{gameStarted ? (
-				<Container>
-					<div
-						style={{
-							visibility: roundEnded ? "visible" : "hidden",
-						}}
-					>
-						<Button
-							className="mb-3"
-							onClick={handleNextRoundButtonClick}
+				// if round is ongoing
+				!roundEnded ? (
+					<Container>
+						<Timer />
+						<Row>
+							<Col className="d-flex justify-content-end">
+								<RandomColor />
+							</Col>
+							<Col className="d-flex justify-content-start">
+								<CurrentColor />
+							</Col>
+						</Row>
+					</Container>
+				) : (
+					// if round ended
+					<Container>
+						<div
+							style={{
+								visibility: roundEnded ? "visible" : "hidden",
+							}}
 						>
-							Next Round
-						</Button>
-						<ColorDifference />
-					</div>
-					<Timer />
-					<Row>
-						<Col className="d-flex justify-content-end">
-							<RandomColor />
-						</Col>
-						<Col className="d-flex justify-content-start">
-							<CurrentColor />
-						</Col>
-					</Row>
-				</Container>
+							<Button
+								className="mb-3"
+								onClick={handleNextRoundButtonClick}
+							>
+								Next Round
+							</Button>
+							<ColorDifference />
+						</div>
+						<Row>
+							<Col className="d-flex justify-content-end">
+								<RandomColor />
+							</Col>
+							<Col className="d-flex justify-content-start">
+								<CurrentColor />
+							</Col>
+						</Row>
+					</Container>
+				)
 			) : (
+				// if game is has not started
 				<GradientColor></GradientColor>
 			)}
 			{!gameStarted && (
