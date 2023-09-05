@@ -8,6 +8,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Slider from "./Slider";
 import Button from "react-bootstrap/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import {
 	useTimer,
 	useCurrentColor,
@@ -48,73 +51,90 @@ function Home() {
 	return (
 		<Container
 			fluid
-			className="text-center justify-content-center p-5"
+			className="p-5"
 			style={{
 				backgroundColor: themeIsDark ? "#121212" : "#FFFFFF",
 				minHeight: "100vh",
 			}}
 		>
-			<Button onClick={toggleTheme}>
-				{themeIsDark ? "Light Mode" : "Dark Mode"}
-			</Button>
-			<h1
-				className="mb-3"
-				style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
-			>
-				The Color Matching Game
-			</h1>
-			{gameStarted ? (
-				// if round is ongoing
-				!roundEnded ? (
-					<Container>
-						<Timer />
-						<Row>
-							<Col className="d-flex justify-content-end">
-								<RandomColor />
-							</Col>
-							<Col className="d-flex justify-content-start">
-								<CurrentColor />
-							</Col>
-						</Row>
-					</Container>
-				) : (
-					// if round ended
-					<Container>
-						<div
-							style={{
-								visibility: roundEnded ? "visible" : "hidden",
-							}}
+			<Row>
+				<Col>
+					<Button onClick={toggleTheme} className="float-end">
+						<FontAwesomeIcon
+							icon={themeIsDark ? faLightbulb : faMoon}
+							className="pe-2"
+						></FontAwesomeIcon>
+						{themeIsDark ? "Light Mode" : "Dark Mode"}
+					</Button>
+				</Col>
+			</Row>
+			<Row>
+				<Col className="text-center justify-content-center">
+					<h1
+						className="mb-3"
+						style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
+					>
+						The Color Matching Game
+					</h1>
+					{gameStarted ? (
+						// if round is ongoing
+						!roundEnded ? (
+							<Container>
+								<Timer />
+								<Row>
+									<Col className="d-flex justify-content-end">
+										<RandomColor />
+									</Col>
+									<Col className="d-flex justify-content-start">
+										<CurrentColor />
+									</Col>
+								</Row>
+							</Container>
+						) : (
+							// if round ended
+							<Container>
+								<div
+									style={{
+										visibility: roundEnded
+											? "visible"
+											: "hidden",
+									}}
+								>
+									<Button
+										className="mb-2"
+										onClick={handleNextRoundButtonClick}
+									>
+										Next Round
+									</Button>
+									<ColorDifference />
+								</div>
+								<Row>
+									<Col className="d-flex justify-content-end">
+										<RandomColor />
+									</Col>
+									<Col className="d-flex justify-content-start">
+										<CurrentColor />
+									</Col>
+								</Row>
+							</Container>
+						)
+					) : (
+						// if game is has not started
+						<GradientColor></GradientColor>
+					)}
+					{!gameStarted && (
+						<Button
+							className="mt-5"
+							onClick={handleStartGameButtonClick}
 						>
-							<Button
-								className="mb-2"
-								onClick={handleNextRoundButtonClick}
-							>
-								Next Round
-							</Button>
-							<ColorDifference />
-						</div>
-						<Row>
-							<Col className="d-flex justify-content-end">
-								<RandomColor />
-							</Col>
-							<Col className="d-flex justify-content-start">
-								<CurrentColor />
-							</Col>
-						</Row>
-					</Container>
-				)
-			) : (
-				// if game is has not started
-				<GradientColor></GradientColor>
-			)}
-			{!gameStarted && (
-				<Button className="mt-5" onClick={handleStartGameButtonClick}>
-					Start Game
-				</Button>
-			)}
-			<Slider color="red" />
-			<Slider color="green" />
-			<Slider color="blue" />
+							Start Game
+						</Button>
+					)}
+					<Slider color="red" />
+					<Slider color="green" />
+					<Slider color="blue" />
+				</Col>
+			</Row>
 		</Container>
 	);
 }
