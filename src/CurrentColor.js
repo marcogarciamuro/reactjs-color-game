@@ -2,7 +2,6 @@ import React from "react";
 import { useCurrentColor, useGameStatus } from "./GameContext";
 
 function CurrentColor(props) {
-	console.log(props);
 	const { redValueInput, greenValueInput, blueValueInput } =
 		useCurrentColor();
 	const { roundEnded } = useGameStatus();

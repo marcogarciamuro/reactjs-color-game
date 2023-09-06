@@ -5,6 +5,10 @@ const RandomColorContext = React.createContext();
 const CurrentColorContext = React.createContext();
 const TimerContext = React.createContext();
 const ThemeContext = React.createContext();
+const AccuracyContext = React.createContext();
+export function useAccuracy() {
+	return useContext(AccuracyContext);
+}
 
 export function useTimer() {
 	return useContext(TimerContext);
@@ -29,6 +33,7 @@ export function useTheme() {
 export function GameProvider({ children }) {
 	const [gameStarted, setGameStarted] = useState(false);
 	const [timer, setTimer] = useState("00:15");
+	const [accuracy, setAccuracy] = useState();
 
 	const Ref = useRef(null);
 	function getTimeRemaining(e) {
@@ -82,7 +87,7 @@ export function GameProvider({ children }) {
 
 	const [roundEnded, setRoundEnded] = useState(false);
 
-	const [themeIsDark, setThemeIsDark] = useState(false);
+	const [themeIsDark, setThemeIsDark] = useState(true);
 
 	useEffect(() => {
 		if (timer === "00:00") {
@@ -106,29 +111,31 @@ export function GameProvider({ children }) {
 				}}
 			>
 				<TimerContext.Provider value={{ timer, initializeTimer }}>
-					<CurrentColorContext.Provider
-						value={{
-							redValueInput,
-							greenValueInput,
-							blueValueInput,
-							setRedValueInput,
-							setGreenValueInput,
-							setBlueValueInput,
-						}}
-					>
-						<RandomColorContext.Provider
+					<AccuracyContext.Provider value={{ accuracy, setAccuracy }}>
+						<CurrentColorContext.Provider
 							value={{
-								redValueTarget,
-								greenValueTarget,
-								blueValueTarget,
-								setRedValueTarget,
-								setGreenValueTarget,
-								setBlueValueTarget,
+								redValueInput,
+								greenValueInput,
+								blueValueInput,
+								setRedValueInput,
+								setGreenValueInput,
+								setBlueValueInput,
 							}}
 						>
-							{children}
-						</RandomColorContext.Provider>
-					</CurrentColorContext.Provider>
+							<RandomColorContext.Provider
+								value={{
+									redValueTarget,
+									greenValueTarget,
+									blueValueTarget,
+									setRedValueTarget,
+									setGreenValueTarget,
+									setBlueValueTarget,
+								}}
+							>
+								{children}
+							</RandomColorContext.Provider>
+						</CurrentColorContext.Provider>
+					</AccuracyContext.Provider>
 				</TimerContext.Provider>
 			</GameStatusContext.Provider>
 		</ThemeContext.Provider>

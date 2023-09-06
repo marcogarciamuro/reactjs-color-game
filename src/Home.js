@@ -10,7 +10,7 @@ import Slider from "./Slider";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-solid-svg-icons";
-import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { faSun } from "@fortawesome/free-solid-svg-icons";
 import {
 	useTimer,
 	useCurrentColor,
@@ -18,6 +18,7 @@ import {
 	useTheme,
 } from "./GameContext";
 import ColorDifference from "./ColorDifference";
+import PlayerStats from "./PlayerStats";
 
 function Home() {
 	const { gameStarted, roundEnded, setGameStarted, setRoundEnded } =
@@ -47,7 +48,6 @@ function Home() {
 		});
 	}
 
-	console.log("Round ended: " + roundEnded);
 	return (
 		<Container
 			fluid
@@ -59,13 +59,20 @@ function Home() {
 		>
 			<Row>
 				<Col>
-					<Button onClick={toggleTheme} className="float-end">
+					<Button
+						onClick={toggleTheme}
+						variant="outline-primary"
+						className="float-end"
+					>
 						<FontAwesomeIcon
-							icon={themeIsDark ? faLightbulb : faMoon}
-							className="pe-2"
+							icon={themeIsDark ? faSun : faMoon}
+							className="pe-1"
 						></FontAwesomeIcon>
 						{themeIsDark ? "Light Mode" : "Dark Mode"}
 					</Button>
+				</Col>
+				<Col>
+					<PlayerStats />
 				</Col>
 			</Row>
 			<Row>

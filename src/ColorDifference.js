@@ -1,5 +1,11 @@
-import React from "react";
-import { useCurrentColor, useRandomColor, useTheme } from "./GameContext";
+import React, { useEffect } from "react";
+import {
+	useGameStatus,
+	useCurrentColor,
+	useRandomColor,
+	useTheme,
+	useAccuracy,
+} from "./GameContext";
 
 function ColorDifference() {
 	const { redValueInput, greenValueInput, blueValueInput } =
@@ -7,48 +13,68 @@ function ColorDifference() {
 	const { redValueTarget, greenValueTarget, blueValueTarget } =
 		useRandomColor();
 
+	const { roundEnded } = useGameStatus();
+
 	const { themeIsDark } = useTheme();
+	const { accuracy, setAccuracy } = useAccuracy();
 
 	function getColorAccuracy(colorValueInput, colorValueTarget) {
 		return 1 - Math.abs(colorValueInput - colorValueTarget) / 255;
 	}
 
-	const redValueAccuracy = getColorAccuracy(redValueInput, redValueTarget);
-	const greenValueAccuracy = getColorAccuracy(
+	useEffect(() => {
+		if (roundEnded) {
+			const redValueAccuracy = getColorAccuracy(
+				redValueInput,
+				redValueTarget
+			);
+			const greenValueAccuracy = getColorAccuracy(
+				greenValueInput,
+				greenValueTarget
+			);
+			const blueValueAccuracy = getColorAccuracy(
+				blueValueInput,
+				blueValueTarget
+			);
+
+			console.log(
+				"red input: " + redValueInput,
+				"-- red target: " + redValueTarget
+			);
+			console.log(
+				"green input: " + greenValueInput,
+				"-- green target: " + greenValueTarget
+			);
+			console.log(
+				"blue input: " + blueValueInput,
+				"-- blue target: " + blueValueTarget
+			);
+
+			const totalAccuracy =
+				(redValueAccuracy + greenValueAccuracy + blueValueAccuracy) / 3;
+
+			console.log("total accuracy" + totalAccuracy);
+
+			const totalAccuracyPercent = Math.round(totalAccuracy * 100);
+			setAccuracy(totalAccuracyPercent);
+		}
+	}, [
+		blueValueInput,
+		blueValueTarget,
 		greenValueInput,
-		greenValueTarget
-	);
-	const blueValueAccuracy = getColorAccuracy(blueValueInput, blueValueTarget);
-
-	console.log("red accuracy: " + redValueAccuracy);
-	console.log("green accuracy: " + greenValueAccuracy);
-	console.log("blue accuracy: " + blueValueAccuracy);
-	console.log(
-		"red input: " + redValueInput,
-		"-- red target: " + redValueTarget
-	);
-	console.log(
-		"green input: " + greenValueInput,
-		"-- green target: " + greenValueTarget
-	);
-	console.log(
-		"blue input: " + blueValueInput,
-		"-- blue target: " + blueValueTarget
-	);
-
-	const totalAccuracy =
-		(redValueAccuracy + greenValueAccuracy + blueValueAccuracy) / 3;
-
-	console.log("total accuracy" + totalAccuracy);
-
-	const totalAccuracyPercent = Math.round(totalAccuracy * 100);
+		greenValueTarget,
+		redValueInput,
+		redValueTarget,
+		roundEnded,
+		setAccuracy,
+	]);
 
 	return (
 		<div
 			className="mb-2"
 			style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
 		>
-			Accuracy: {totalAccuracyPercent}%
+			Accuracy: {accuracy}%
 		</div>
 	);
 }
