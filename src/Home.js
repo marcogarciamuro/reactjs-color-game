@@ -57,13 +57,9 @@ function Home() {
 				minHeight: "100vh",
 			}}
 		>
-			<Row>
-				<Col>
-					<Button
-						onClick={toggleTheme}
-						variant="outline-primary"
-						className="float-end"
-					>
+			<Row className="justify-content-between">
+				<Col xs="auto">
+					<Button onClick={toggleTheme} variant="outline-primary">
 						<FontAwesomeIcon
 							icon={themeIsDark ? faSun : faMoon}
 							className="pe-1"
@@ -71,10 +67,11 @@ function Home() {
 						{themeIsDark ? "Light Mode" : "Dark Mode"}
 					</Button>
 				</Col>
-				<Col>
+				<Col xs="auto">
 					<PlayerStats />
 				</Col>
 			</Row>
+
 			<Row>
 				<Col className="text-center justify-content-center">
 					<h1

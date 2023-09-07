@@ -37,23 +37,23 @@ function ColorDifference() {
 				blueValueTarget
 			);
 
-			console.log(
-				"red input: " + redValueInput,
-				"-- red target: " + redValueTarget
-			);
-			console.log(
-				"green input: " + greenValueInput,
-				"-- green target: " + greenValueTarget
-			);
-			console.log(
-				"blue input: " + blueValueInput,
-				"-- blue target: " + blueValueTarget
-			);
+			// console.log(
+			// 	"red input: " + redValueInput,
+			// 	"-- red target: " + redValueTarget
+			// );
+			// console.log(
+			// 	"green input: " + greenValueInput,
+			// 	"-- green target: " + greenValueTarget
+			// );
+			// console.log(
+			// 	"blue input: " + blueValueInput,
+			// 	"-- blue target: " + blueValueTarget
+			// );
 
 			const totalAccuracy =
 				(redValueAccuracy + greenValueAccuracy + blueValueAccuracy) / 3;
 
-			console.log("total accuracy" + totalAccuracy);
+			// console.log("total accuracy" + totalAccuracy);
 
 			const totalAccuracyPercent = Math.round(totalAccuracy * 100);
 			setAccuracy(totalAccuracyPercent);

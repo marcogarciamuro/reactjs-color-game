@@ -1,31 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useGameStatus, useAccuracy, useTheme } from "./GameContext";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 
 function PlayerStats() {
 	const { roundEnded } = useGameStatus();
 	const { accuracy } = useAccuracy();
 	const { themeIsDark } = useTheme();
-	const [bestScore, setBestScore] = useState();
-	const [averageScore, setAverageScore] = useState();
-	const [gamesPlayed, setGamesPlayed] = useState();
+	const [bestScore, setBestScore] = useState(null);
+	const [averageScore, setAverageScore] = useState(0);
+	const [gamesPlayed, setGamesPlayed] = useState(0);
+
+	// update game count
 	useEffect(() => {
 		if (roundEnded) {
-			// update game count
-			const updatedGamesPlayed =
-				parseInt(localStorage.getItem("gamesPlayed")) + 1;
-			localStorage.setItem("gamesPlayed", `${updatedGamesPlayed}`);
-			setGamesPlayed(updatedGamesPlayed);
+			localStorage.setItem("gamesPlayed", gamesPlayed + 1);
+			setGamesPlayed((currentVal) => {
+				return currentVal + 1;
+			});
 		}
 	}, [roundEnded]);
+
 	function resetStats() {
 		localStorage.setItem("gamesPlayed", "0");
-		localStorage.setItem("bestScore", "---");
-		localStorage.setItem("averageScore", "---");
+		localStorage.setItem("bestScore", "0");
+		localStorage.setItem("averageScore", "0");
 		setGamesPlayed(0);
-		setBestScore("---");
-		setAverageScore("---");
+		setBestScore(0);
+		setAverageScore(0);
 	}
 
 	useEffect(() => {
@@ -33,51 +37,86 @@ function PlayerStats() {
 			// update accuracy
 			if (gamesPlayed === 1) {
 				console.log("SIMPLE CASE");
+				console.log("gamesPlayed: " + gamesPlayed);
 				localStorage.setItem("averageScore", `${accuracy}%`);
 				setAverageScore(accuracy);
-			} else {
-				const updatedAverage = Math.round(
-					(averageScore / 100 + accuracy / 100 / gamesPlayed) * 100
+			} else if (gamesPlayed > 1) {
+				console.log("gamesPlayed 2nd: " + gamesPlayed);
+				const currentAverageDecimal = averageScore / 100;
+				const newGameScore = accuracy / 100;
+				const updatedAverageDecimal =
+					(currentAverageDecimal + newGameScore) / gamesPlayed;
+				const updatedAveragePercent = Math.round(
+					updatedAverageDecimal * 100
 				);
-				localStorage.setItem("averageScore", `${updatedAverage}`);
+
+				console.log("updated average decimal" + updatedAverageDecimal);
+				console.log(`current average = ${averageScore / 100}`);
+				console.log(`current accuracy = ${accuracy / 100}`);
+
+				localStorage.setItem(
+					"averageScore",
+					`${updatedAveragePercent}`
+				);
+				setAverageScore(updatedAveragePercent);
 			}
 
 			// update personal best score
-			if (gamesPlayed === 1 || accuracy > parseInt(bestScore)) {
+			if (
+				gamesPlayed === 1 ||
+				(accuracy > bestScore && gamesPlayed > 1)
+			) {
+				console.log("games: " + gamesPlayed);
+				console.log("setting bestscore");
 				localStorage.setItem("bestScore", `${accuracy}%`);
 				setBestScore(accuracy);
 			}
 		}
-	}, [accuracy, roundEnded, gamesPlayed, bestScore, averageScore]);
+	}, [roundEnded, gamesPlayed]);
 
 	useEffect(() => {
-		if (localStorage.getItem("averageScore") == null) {
-			localStorage.setItem("averageScore", "---");
-			setAverageScore("---");
+		console.log(localStorage.getItem("averageScore"));
+		if (localStorage.getItem("averageScore") === null) {
+			localStorage.setItem("averageScore", 0);
 		}
-		if (localStorage.getItem("gamesPlayed") == null) {
-			localStorage.setItem("gamesPlayed", "0");
-			setGamesPlayed(0);
+		if (localStorage.getItem("bestScore") === null) {
+			localStorage.setItem("bestScore", 0);
 		}
-		if (localStorage.getItem("bestScore") == null) {
-			localStorage.setItem("bestScore", "---");
-			setBestScore("---");
+		if (localStorage.getItem("gamesPlayed") === null) {
+			localStorage.setItem("gamesPlayed", 0);
 		}
+		setAverageScore(parseInt(localStorage.getItem("averageScore")));
+		setBestScore(parseInt(localStorage.getItem("bestScore")));
+		setGamesPlayed(parseInt(localStorage.getItem("gamesPlayed")));
 	}, []);
 
 	return (
-		<div>
-			<Row style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}>
-				Best Score: {bestScore}%
+		<Container>
+			<Row
+				style={{
+					color: themeIsDark ? "#FFFFFF" : "#121212",
+				}}
+			>
+				<Col className="text-end">
+					Best Score: {bestScore === 0 ? "---" : bestScore}%
+				</Col>
 			</Row>
 			<Row style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}>
-				Average Score: {averageScore}%
+				<Col className="text-end">
+					Average Score: {averageScore === 0 ? "---" : averageScore}%
+				</Col>
 			</Row>
 			<Row style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}>
-				Games Played: {gamesPlayed}
+				<Col className="text-end">Games Played: {gamesPlayed}</Col>
 			</Row>
-			<Button onClick={resetStats}>Reset Stats</Button>
-		</div>
+			<Row className="pt-2">
+				<Col className="d-flex justify-content-end">
+					<Button variant="outline-primary" onClick={resetStats}>
+						Reset Stats
+					</Button>
+				</Col>
+			</Row>
+		</Container>
 	);
 }
 export default PlayerStats;
