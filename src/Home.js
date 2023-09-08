@@ -8,9 +8,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Slider from "./Slider";
 import Button from "react-bootstrap/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
-import { faSun } from "@fortawesome/free-solid-svg-icons";
+import ToggleTheme from "./ToggleTheme";
+
 import {
 	useTimer,
 	useCurrentColor,
@@ -42,32 +41,20 @@ function Home() {
 		setGameStarted(true);
 	}
 
-	function toggleTheme() {
-		setThemeIsDark((currentTheme) => {
-			return !currentTheme;
-		});
-	}
-
 	return (
 		<Container
 			fluid
-			className="p-5"
+			className="pt-5 px-4"
 			style={{
 				backgroundColor: themeIsDark ? "#121212" : "#FFFFFF",
 				minHeight: "100vh",
 			}}
 		>
 			<Row className="justify-content-between">
-				<Col xs="auto">
-					<Button onClick={toggleTheme} variant="outline-primary">
-						<FontAwesomeIcon
-							icon={themeIsDark ? faSun : faMoon}
-							className="pe-1"
-						></FontAwesomeIcon>
-						{themeIsDark ? "Light Mode" : "Dark Mode"}
-					</Button>
+				<Col xs="auto" className="ps-0">
+					<ToggleTheme />
 				</Col>
-				<Col xs="auto">
+				<Col xs="auto" className="pe-0">
 					<PlayerStats />
 				</Col>
 			</Row>

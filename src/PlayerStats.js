@@ -91,27 +91,38 @@ function PlayerStats() {
 	}, []);
 
 	return (
-		<Container>
+		<Container className="pe-0">
 			<Row
 				style={{
 					color: themeIsDark ? "#FFFFFF" : "#121212",
 				}}
 			>
-				<Col className="text-end">
-					Best Score: {bestScore === 0 ? "---" : bestScore}%
+				<Col xs="auto" className="px-0 text-end">
+					Best Score:
+				</Col>
+				<Col xs="auto">{bestScore === 0 ? "---" : bestScore}%</Col>
+			</Row>
+			<Row style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}>
+				<Col xs="auto" className="px-0 text-end">
+					Average Score:{" "}
+				</Col>
+				<Col xs="auto">
+					{averageScore === 0 ? "---" : averageScore}%
 				</Col>
 			</Row>
 			<Row style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}>
-				<Col className="text-end">
-					Average Score: {averageScore === 0 ? "---" : averageScore}%
+				<Col xs="auto" className="px-0 text-end">
+					Games Played:{" "}
 				</Col>
+				<Col xs="auto">{gamesPlayed}</Col>
 			</Row>
-			<Row style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}>
-				<Col className="text-end">Games Played: {gamesPlayed}</Col>
-			</Row>
-			<Row className="pt-2">
-				<Col className="d-flex justify-content-end">
-					<Button variant="outline-primary" onClick={resetStats}>
+			<Row className="pt-2 pb-4">
+				<Col className="d-flex justify-content-center">
+					<Button
+						size="sm"
+						variant="outline-primary"
+						onClick={resetStats}
+					>
 						Reset Stats
 					</Button>
 				</Col>
