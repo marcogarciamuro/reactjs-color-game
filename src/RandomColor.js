@@ -35,7 +35,7 @@ function RandomColor() {
 			setBlueValueTarget(color.b);
 			return rgbToHex(color.r, color.g, color.b);
 		}
-		if (timer === "00:15") setColorToMatch(getNewColorHex());
+		if (timer === "00:30") setColorToMatch(getNewColorHex());
 	}, [timer, setBlueValueTarget, setGreenValueTarget, setRedValueTarget]);
 
 	return (

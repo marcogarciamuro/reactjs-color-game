@@ -44,7 +44,7 @@ function Home() {
 	return (
 		<Container
 			fluid
-			className="pt-5 px-4"
+			className="pt-2 px-4"
 			style={{
 				backgroundColor: themeIsDark ? "#121212" : "#FFFFFF",
 				minHeight: "100vh",

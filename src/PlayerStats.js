@@ -116,7 +116,7 @@ function PlayerStats() {
 				</Col>
 				<Col xs="auto">{gamesPlayed}</Col>
 			</Row>
-			<Row className="pt-2 pb-4">
+			<Row className="pt-2 pb-4 pb-sm-4 pb-md-2 pb-lg-0">
 				<Col className="d-flex justify-content-center">
 					<Button
 						size="sm"

@@ -32,7 +32,7 @@ export function useTheme() {
 
 export function GameProvider({ children }) {
 	const [gameStarted, setGameStarted] = useState(false);
-	const [timer, setTimer] = useState("00:15");
+	const [timer, setTimer] = useState("00:30");
 	const [accuracy, setAccuracy] = useState();
 
 	const Ref = useRef(null);
@@ -59,7 +59,7 @@ export function GameProvider({ children }) {
 	}
 
 	function clearTimer(e) {
-		setTimer("00:15");
+		setTimer("00:30");
 		if (Ref.current) clearInterval(Ref.current);
 		const id = setInterval(() => {
 			startTimer(e);
@@ -69,7 +69,7 @@ export function GameProvider({ children }) {
 
 	function getDeadTime() {
 		let deadline = new Date();
-		deadline.setSeconds(deadline.getSeconds() + 15);
+		deadline.setSeconds(deadline.getSeconds() + 30);
 		return deadline;
 	}
 

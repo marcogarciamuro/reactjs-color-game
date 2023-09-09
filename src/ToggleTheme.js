@@ -24,7 +24,7 @@ function ToggleTheme() {
 	return (
 		<ButtonGroup>
 			<OverlayTrigger
-				placement="top"
+				placement="bottom"
 				overlay={<Tooltip> Set Light Theme</Tooltip>}
 			>
 				<ToggleButton
@@ -45,7 +45,7 @@ function ToggleTheme() {
 				</ToggleButton>
 			</OverlayTrigger>
 			<OverlayTrigger
-				placement="top"
+				placement="bottom"
 				overlay={<Tooltip> Set Dark Theme</Tooltip>}
 			>
 				<ToggleButton
