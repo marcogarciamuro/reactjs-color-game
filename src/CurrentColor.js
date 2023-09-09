@@ -6,15 +6,16 @@ function CurrentColor(props) {
 		useCurrentColor();
 	const { roundEnded } = useGameStatus();
 	return (
-		<div
-			className={`color-block ${
-				roundEnded ? "move-block-left" : ""
-			} color-text align-items-center px-2`}
-			style={{
-				backgroundColor: `rgb(${redValueInput}, ${greenValueInput}, ${blueValueInput})`,
-			}}
-		>
-			Current Color
+		<div>
+			{!roundEnded && <div>Current Color</div>}
+			<div
+				className={`color-block ${
+					roundEnded ? "move-block-left" : ""
+				} color-text align-items-center px-2`}
+				style={{
+					backgroundColor: `rgb(${redValueInput}, ${greenValueInput}, ${blueValueInput})`,
+				}}
+			></div>
 		</div>
 	);
 }

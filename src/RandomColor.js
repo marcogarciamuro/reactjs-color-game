@@ -39,15 +39,16 @@ function RandomColor() {
 	}, [timer, setBlueValueTarget, setGreenValueTarget, setRedValueTarget]);
 
 	return (
-		<div
-			className={`color-block ${
-				roundEnded ? "move-block-right" : ""
-			} align-items-center px-2`}
-			style={{
-				backgroundColor: colorToMatch,
-			}}
-		>
-			Target Color
+		<div>
+			{!roundEnded && <div>Target Color</div>}
+			<div
+				className={`color-block ${
+					roundEnded ? "move-block-right" : ""
+				} align-items-center px-2`}
+				style={{
+					backgroundColor: colorToMatch,
+				}}
+			></div>
 		</div>
 	);
 }
