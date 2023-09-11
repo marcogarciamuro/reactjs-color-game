@@ -18,6 +18,7 @@ import {
 } from "./GameContext";
 import ColorDifference from "./ColorDifference";
 import PlayerStats from "./PlayerStats";
+import Footer from "./Footer";
 
 function Home() {
 	const { gameStarted, roundEnded, setGameStarted, setRoundEnded } =
@@ -26,7 +27,7 @@ function Home() {
 	const { setRedValueInput, setGreenValueInput, setBlueValueInput } =
 		useCurrentColor();
 
-	const { themeIsDark, setThemeIsDark } = useTheme();
+	const { themeIsDark } = useTheme();
 
 	function handleNextRoundButtonClick() {
 		initializeTimer();
@@ -126,6 +127,7 @@ function Home() {
 					<Slider color="blue" />
 				</Col>
 			</Row>
+			<Footer />
 		</Container>
 	);
 }

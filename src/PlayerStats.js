@@ -33,49 +33,34 @@ function PlayerStats() {
 	}
 
 	useEffect(() => {
-		if (roundEnded) {
-			// update accuracy
-			if (gamesPlayed === 1) {
-				console.log("SIMPLE CASE");
-				console.log("gamesPlayed: " + gamesPlayed);
-				localStorage.setItem("averageScore", `${accuracy}%`);
-				setAverageScore(accuracy);
-			} else if (gamesPlayed > 1) {
-				console.log("gamesPlayed 2nd: " + gamesPlayed);
-				const currentAverageDecimal = averageScore / 100;
-				const newGameScore = accuracy / 100;
-				const updatedAverageDecimal =
-					(currentAverageDecimal + newGameScore) / gamesPlayed;
-				const updatedAveragePercent = Math.round(
-					updatedAverageDecimal * 100
-				);
+		if (!roundEnded) {
+			return;
+		}
+		// update accuracy
+		if (gamesPlayed === 1) {
+			localStorage.setItem("averageScore", `${accuracy}%`);
+			setAverageScore(accuracy);
+		} else if (gamesPlayed > 1) {
+			const currentAverageDecimal = averageScore / 100;
+			const newGameScore = accuracy / 100;
+			const updatedAverageDecimal =
+				(currentAverageDecimal + newGameScore) / gamesPlayed;
+			const updatedAveragePercent = Math.round(
+				updatedAverageDecimal * 100
+			);
 
-				console.log("updated average decimal" + updatedAverageDecimal);
-				console.log(`current average = ${averageScore / 100}`);
-				console.log(`current accuracy = ${accuracy / 100}`);
+			localStorage.setItem("averageScore", `${updatedAveragePercent}`);
+			setAverageScore(updatedAveragePercent);
+		}
 
-				localStorage.setItem(
-					"averageScore",
-					`${updatedAveragePercent}`
-				);
-				setAverageScore(updatedAveragePercent);
-			}
-
-			// update personal best score
-			if (
-				gamesPlayed === 1 ||
-				(accuracy > bestScore && gamesPlayed > 1)
-			) {
-				console.log("games: " + gamesPlayed);
-				console.log("setting bestscore");
-				localStorage.setItem("bestScore", `${accuracy}%`);
-				setBestScore(accuracy);
-			}
+		// update personal best score
+		if (gamesPlayed === 1 || (accuracy > bestScore && gamesPlayed > 1)) {
+			localStorage.setItem("bestScore", `${accuracy}%`);
+			setBestScore(accuracy);
 		}
 	}, [roundEnded, gamesPlayed]);
 
 	useEffect(() => {
-		console.log(localStorage.getItem("averageScore"));
 		if (localStorage.getItem("averageScore") === null) {
 			localStorage.setItem("averageScore", 0);
 		}
