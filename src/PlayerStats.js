@@ -21,6 +21,7 @@ function PlayerStats() {
 				return currentVal + 1;
 			});
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [roundEnded]);
 
 	function resetStats() {
@@ -58,6 +59,7 @@ function PlayerStats() {
 			localStorage.setItem("bestScore", `${accuracy}%`);
 			setBestScore(accuracy);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [roundEnded, gamesPlayed]);
 
 	useEffect(() => {
