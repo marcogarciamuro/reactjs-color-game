@@ -2,7 +2,6 @@ import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import "./App.css";
 import { useCurrentColor, useGameStatus } from "./GameContext";
-import Container from "react-bootstrap/Container";
 
 function Slider(props) {
 	const {

@@ -1,66 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { useGameStatus, useAccuracy, useTheme } from "./GameContext";
+import React, { useEffect } from "react";
+import { useGameStatus, useAccuracy } from "./GameContext";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
-function PlayerStats() {
+function PlayerStats(props) {
 	const { roundEnded } = useGameStatus();
 	const { accuracy } = useAccuracy();
-	const { themeIsDark } = useTheme();
-	const [bestScore, setBestScore] = useState(null);
-	const [averageScore, setAverageScore] = useState(0);
-	const [gamesPlayed, setGamesPlayed] = useState(0);
 
 	// update game count
 	useEffect(() => {
 		if (roundEnded) {
-			localStorage.setItem("gamesPlayed", gamesPlayed + 1);
-			setGamesPlayed((currentVal) => {
+			localStorage.setItem("gamesPlayed", props.gamesPlayed + 1);
+			props.setGamesPlayed((currentVal) => {
 				return currentVal + 1;
 			});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [roundEnded]);
 
-	function resetStats() {
-		localStorage.setItem("gamesPlayed", "0");
-		localStorage.setItem("bestScore", "0");
-		localStorage.setItem("averageScore", "0");
-		setGamesPlayed(0);
-		setBestScore(0);
-		setAverageScore(0);
-	}
-
 	useEffect(() => {
 		if (!roundEnded) {
 			return;
 		}
 		// update accuracy
-		if (gamesPlayed === 1) {
+		if (props.gamesPlayed === 1) {
 			localStorage.setItem("averageScore", `${accuracy}%`);
-			setAverageScore(accuracy);
-		} else if (gamesPlayed > 1) {
-			const currentAverageDecimal = averageScore / 100;
+			props.setAverageScore(accuracy);
+		} else if (props.gamesPlayed > 1) {
+			const currentAverageDecimal = props.averageScore / 100;
 			const newGameScore = accuracy / 100;
 			const updatedAverageDecimal =
-				(currentAverageDecimal + newGameScore) / gamesPlayed;
+				(currentAverageDecimal + newGameScore) / props.gamesPlayed;
 			const updatedAveragePercent = Math.round(
 				updatedAverageDecimal * 100
 			);
 
 			localStorage.setItem("averageScore", `${updatedAveragePercent}`);
-			setAverageScore(updatedAveragePercent);
+			props.setAverageScore(updatedAveragePercent);
 		}
 
 		// update personal best score
-		if (gamesPlayed === 1 || (accuracy > bestScore && gamesPlayed > 1)) {
+		if (
+			props.gamesPlayed === 1 ||
+			(accuracy > props.bestScore && props.gamesPlayed > 1)
+		) {
 			localStorage.setItem("bestScore", `${accuracy}%`);
-			setBestScore(accuracy);
+			props.setBestScore(accuracy);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [roundEnded, gamesPlayed]);
+	}, [roundEnded, props.gamesPlayed]);
 
 	useEffect(() => {
 		if (localStorage.getItem("averageScore") === null) {
@@ -72,10 +60,10 @@ function PlayerStats() {
 		if (localStorage.getItem("gamesPlayed") === null) {
 			localStorage.setItem("gamesPlayed", 0);
 		}
-		setAverageScore(parseInt(localStorage.getItem("averageScore")));
-		setBestScore(parseInt(localStorage.getItem("bestScore")));
-		setGamesPlayed(parseInt(localStorage.getItem("gamesPlayed")));
-	}, []);
+		props.setAverageScore(parseInt(localStorage.getItem("averageScore")));
+		props.setBestScore(parseInt(localStorage.getItem("bestScore")));
+		props.setGamesPlayed(parseInt(localStorage.getItem("gamesPlayed")));
+	}, [props]);
 
 	return (
 		<Container className="pe-0">
@@ -84,17 +72,18 @@ function PlayerStats() {
 			// 	color: themeIsDark ? "#FFFFFF" : "#121212",
 			// }}
 			>
-				Best Score: {bestScore === 0 ? "---" : bestScore}%
+				Best Score: {props.bestScore === 0 ? "---" : props.bestScore}%
 			</Row>
 			<Row
 			// style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
 			>
-				Average Score: {averageScore === 0 ? "---" : averageScore}%
+				Average Score:{" "}
+				{props.averageScore === 0 ? "---" : props.averageScore}%
 			</Row>
 			<Row
 			// style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
 			>
-				Games Played: <Col xs="auto">{gamesPlayed}</Col>
+				Games Played: {props.gamesPlayed}
 			</Row>
 		</Container>
 	);
