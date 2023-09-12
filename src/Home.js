@@ -11,6 +11,7 @@ import Button from "react-bootstrap/Button";
 import ToggleTheme from "./ToggleTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRankingStar } from "@fortawesome/free-solid-svg-icons";
+import StatsResetToast from "./StatsResetToast";
 
 import {
 	useTimer,
@@ -33,6 +34,7 @@ function Home() {
 	const [bestScore, setBestScore] = useState(null);
 	const [averageScore, setAverageScore] = useState(0);
 	const [gamesPlayed, setGamesPlayed] = useState(0);
+	const [showStatsResetToast, setShowStatsResetToast] = useState(false);
 
 	function resetStats() {
 		localStorage.setItem("gamesPlayed", "0");
@@ -42,6 +44,7 @@ function Home() {
 		setBestScore(0);
 		setAverageScore(0);
 		handleClose();
+		setShowStatsResetToast(true);
 	}
 
 	function handleNextRoundButtonClick() {
@@ -79,9 +82,18 @@ function Home() {
 					<ToggleTheme />
 				</Col>
 				<Col xs="auto" className="pe-0">
-					<Button onClick={handleShow} variant="outline-primary">
-						<FontAwesomeIcon icon={faRankingStar}></FontAwesomeIcon>
-					</Button>
+					{showStatsResetToast ? (
+						<StatsResetToast
+							show={showStatsResetToast}
+							setShow={setShowStatsResetToast}
+						/>
+					) : (
+						<Button onClick={handleShow} variant="outline-primary">
+							<FontAwesomeIcon
+								icon={faRankingStar}
+							></FontAwesomeIcon>
+						</Button>
+					)}
 				</Col>
 			</Row>
 			<Modal
