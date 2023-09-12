@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import RandomColor from "./RandomColor";
 import CurrentColor from "./CurrentColor";
-import GradientColor from "./GradientColor";
 import Timer from "./Timer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Modal from "react-bootstrap/Modal";
 import Slider from "./Slider";
 import Button from "react-bootstrap/Button";
 import ToggleTheme from "./ToggleTheme";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRankingStar } from "@fortawesome/free-solid-svg-icons";
 
 import {
 	useTimer,
@@ -26,8 +28,21 @@ function Home() {
 	const { initializeTimer } = useTimer();
 	const { setRedValueInput, setGreenValueInput, setBlueValueInput } =
 		useCurrentColor();
-
 	const { themeIsDark } = useTheme();
+	const [showGameStats, setShowGameStats] = useState(false);
+	const [bestScore, setBestScore] = useState(null);
+	const [averageScore, setAverageScore] = useState(0);
+	const [gamesPlayed, setGamesPlayed] = useState(0);
+
+	function resetStats() {
+		localStorage.setItem("gamesPlayed", "0");
+		localStorage.setItem("bestScore", "0");
+		localStorage.setItem("averageScore", "0");
+		setGamesPlayed(0);
+		setBestScore(0);
+		setAverageScore(0);
+		handleClose();
+	}
 
 	function handleNextRoundButtonClick() {
 		initializeTimer();
@@ -42,24 +57,65 @@ function Home() {
 		setGameStarted(true);
 	}
 
+	function handleShow() {
+		setShowGameStats(true);
+	}
+
+	function handleClose() {
+		setShowGameStats(false);
+	}
+
 	return (
 		<Container
 			fluid
-			className="pt-2 px-4"
+			className="d-flex flex-column pt-2 px-4"
 			style={{
 				backgroundColor: themeIsDark ? "#121212" : "#FFFFFF",
 				minHeight: "100vh",
 			}}
 		>
-			<Row className="justify-content-between">
+			<Row className="justify-content-between pb-5">
 				<Col xs="auto" className="ps-0">
 					<ToggleTheme />
 				</Col>
 				<Col xs="auto" className="pe-0">
-					<PlayerStats />
+					<Button onClick={handleShow} variant="outline-primary">
+						<FontAwesomeIcon icon={faRankingStar}></FontAwesomeIcon>
+					</Button>
 				</Col>
 			</Row>
-
+			<Modal
+				// style={{ backgroundColor: "#181a1b" }}
+				show={showGameStats}
+				onHide={handleClose}
+				size="sm"
+			>
+				<Modal.Header closeButton>
+					<Modal.Title>Your game statistics</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<PlayerStats
+						bestScore={bestScore}
+						setBestScore={setBestScore}
+						averageScore={averageScore}
+						setAverageScore={setAverageScore}
+						gamesPlayed={gamesPlayed}
+						setGamesPlayed={setGamesPlayed}
+					/>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button
+						variant="danger"
+						onClick={resetStats}
+						className="me-auto"
+					>
+						Reset Stats
+					</Button>
+					<Button variant="secondary" onClick={handleClose}>
+						Close
+					</Button>
+				</Modal.Footer>
+			</Modal>
 			<Row>
 				<Col className="text-center justify-content-center">
 					<h1
@@ -71,7 +127,7 @@ function Home() {
 					{gameStarted ? (
 						// if round is ongoing
 						!roundEnded ? (
-							<Container>
+							<Container className="px-0">
 								<Timer />
 								<Row>
 									<Col className="d-flex justify-content-end">
@@ -85,21 +141,13 @@ function Home() {
 						) : (
 							// if round ended
 							<Container>
-								<div
-									style={{
-										visibility: roundEnded
-											? "visible"
-											: "hidden",
-									}}
+								<Button
+									className="mb-4"
+									onClick={handleNextRoundButtonClick}
 								>
-									<Button
-										className="mb-2"
-										onClick={handleNextRoundButtonClick}
-									>
-										Next Round
-									</Button>
-									<ColorDifference />
-								</div>
+									Next Round
+								</Button>
+								<ColorDifference />
 								<Row>
 									<Col className="d-flex justify-content-end">
 										<RandomColor />
@@ -112,21 +160,27 @@ function Home() {
 						)
 					) : (
 						// if game is has not started
-						<GradientColor></GradientColor>
-					)}
-					{!gameStarted && (
 						<Button
-							className="mt-5"
+							size="lg"
+							id="gradient-box"
+							className="mt-5 mb-4"
 							onClick={handleStartGameButtonClick}
 						>
 							Start Game
 						</Button>
 					)}
-					<Slider color="red" />
-					<Slider color="green" />
-					<Slider color="blue" />
+					<Container className="py-5">
+						<Slider color="red" />
+					</Container>
+					<Container className="py-5">
+						<Slider color="green" />
+					</Container>
+					<Container className="pt-5 pb-4">
+						<Slider color="blue" />
+					</Container>
 				</Col>
 			</Row>
+			<div className="flex-grow-1"></div>
 			<Footer />
 		</Container>
 	);

@@ -80,39 +80,21 @@ function PlayerStats() {
 	return (
 		<Container className="pe-0">
 			<Row
-				style={{
-					color: themeIsDark ? "#FFFFFF" : "#121212",
-				}}
+			// style={{
+			// 	color: themeIsDark ? "#FFFFFF" : "#121212",
+			// }}
 			>
-				<Col xs="auto" className="px-0 text-end">
-					Best Score:
-				</Col>
-				<Col xs="auto">{bestScore === 0 ? "---" : bestScore}%</Col>
+				Best Score: {bestScore === 0 ? "---" : bestScore}%
 			</Row>
-			<Row style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}>
-				<Col xs="auto" className="px-0 text-end">
-					Average Score:{" "}
-				</Col>
-				<Col xs="auto">
-					{averageScore === 0 ? "---" : averageScore}%
-				</Col>
+			<Row
+			// style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
+			>
+				Average Score: {averageScore === 0 ? "---" : averageScore}%
 			</Row>
-			<Row style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}>
-				<Col xs="auto" className="px-0 text-end">
-					Games Played:{" "}
-				</Col>
-				<Col xs="auto">{gamesPlayed}</Col>
-			</Row>
-			<Row className="pt-2 pb-4 pb-sm-4 pb-md-2 pb-lg-0">
-				<Col className="ps-0">
-					<Button
-						size="sm"
-						variant="outline-primary"
-						onClick={resetStats}
-					>
-						Reset Stats
-					</Button>
-				</Col>
+			<Row
+			// style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
+			>
+				Games Played: <Col xs="auto">{gamesPlayed}</Col>
 			</Row>
 		</Container>
 	);

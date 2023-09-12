@@ -12,7 +12,7 @@ function Footer() {
 		<Container>
 			<footer
 				class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
-				style={{ borderColor: "yellow" }}
+				style={{ width: "100%" }}
 			>
 				<Col md={4} class="d-flex align-items-center">
 					<span
