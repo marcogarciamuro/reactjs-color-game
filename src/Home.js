@@ -99,12 +99,7 @@ function Home() {
 					)}
 				</Col>
 			</Row>
-			<Modal
-				// style={{ backgroundColor: "#181a1b" }}
-				show={showGameStats}
-				onHide={handleClose}
-				size="sm"
-			>
+			<Modal show={showGameStats} onHide={handleClose} size="sm">
 				<Modal.Header closeButton>
 					<Modal.Title>Your game statistics</Modal.Title>
 				</Modal.Header>
@@ -156,13 +151,21 @@ function Home() {
 						) : (
 							// if round ended
 							<Container>
-								<Button
-									className="mb-4"
-									onClick={handleNextRoundButtonClick}
+								<div
+									style={{
+										visibility: roundEnded
+											? "visible"
+											: "hidden",
+									}}
 								>
-									Next Round
-								</Button>
-								<ColorDifference />
+									<Button
+										className="mb-2"
+										onClick={handleNextRoundButtonClick}
+									>
+										Next Round
+									</Button>
+									<ColorDifference />
+								</div>
 								<Row>
 									<Col className="d-flex justify-content-end">
 										<RandomColor />
@@ -175,6 +178,7 @@ function Home() {
 						)
 					) : (
 						// if game is has not started
+
 						<Button
 							size="lg"
 							id="gradient-box"
