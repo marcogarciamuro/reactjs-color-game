@@ -5,13 +5,13 @@ import CurrentColor from "./CurrentColor";
 import Timer from "./Timer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Modal from "react-bootstrap/Modal";
 import Slider from "./Slider";
 import Button from "react-bootstrap/Button";
 import ToggleTheme from "./ToggleTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRankingStar } from "@fortawesome/free-solid-svg-icons";
 import StatsResetToast from "./StatsResetToast";
+import Rules from "./Rules";
 
 import {
 	useTimer,
@@ -20,8 +20,8 @@ import {
 	useTheme,
 } from "./GameContext";
 import ColorDifference from "./ColorDifference";
-import PlayerStats from "./PlayerStats";
 import Footer from "./Footer";
+import PlayerStatsModal from "./PlayerStatsModal";
 
 function Home() {
 	const { gameStarted, roundEnded, setGameStarted, setRoundEnded } =
@@ -30,22 +30,9 @@ function Home() {
 	const { setRedValueInput, setGreenValueInput, setBlueValueInput } =
 		useCurrentColor();
 	const { themeIsDark } = useTheme();
-	const [showGameStats, setShowGameStats] = useState(false);
-	const [bestScore, setBestScore] = useState(null);
-	const [averageScore, setAverageScore] = useState(0);
-	const [gamesPlayed, setGamesPlayed] = useState(0);
+	const [showGameStatsModal, setShowGameStatsModal] = useState(false);
 	const [showStatsResetToast, setShowStatsResetToast] = useState(false);
-
-	function resetStats() {
-		localStorage.setItem("gamesPlayed", "0");
-		localStorage.setItem("bestScore", "0");
-		localStorage.setItem("averageScore", "0");
-		setGamesPlayed(0);
-		setBestScore(0);
-		setAverageScore(0);
-		handleClose();
-		setShowStatsResetToast(true);
-	}
+	const [showGameRules, setShowGameRules] = useState(false);
 
 	function handleNextRoundButtonClick() {
 		initializeTimer();
@@ -60,12 +47,12 @@ function Home() {
 		setGameStarted(true);
 	}
 
-	function handleShow() {
-		setShowGameStats(true);
+	function handleShowGameStatsModal() {
+		setShowGameStatsModal(true);
 	}
 
-	function handleClose() {
-		setShowGameStats(false);
+	function handleCloseGameStatsModal() {
+		setShowGameStatsModal(false);
 	}
 
 	return (
@@ -77,9 +64,18 @@ function Home() {
 				minHeight: "100vh",
 			}}
 		>
+			<Rules
+				show={showGameRules}
+				onHide={() => setShowGameRules(false)}
+			/>
+			<PlayerStatsModal
+				show={showGameStatsModal}
+				handleClose={handleCloseGameStatsModal}
+				setShowStatsResetToast={setShowStatsResetToast}
+			/>
 			<Row
 				className="justify-content-between pb-5"
-				style={{ height: "101px" }}
+				style={{ height: "85px" }}
 			>
 				<Col xs="auto" className="ps-0">
 					<ToggleTheme />
@@ -91,7 +87,10 @@ function Home() {
 							setShow={setShowStatsResetToast}
 						/>
 					) : (
-						<Button onClick={handleShow} variant="outline-primary">
+						<Button
+							onClick={handleShowGameStatsModal}
+							variant="outline-primary"
+						>
 							<FontAwesomeIcon
 								icon={faRankingStar}
 							></FontAwesomeIcon>
@@ -99,33 +98,7 @@ function Home() {
 					)}
 				</Col>
 			</Row>
-			<Modal show={showGameStats} onHide={handleClose} size="sm">
-				<Modal.Header closeButton>
-					<Modal.Title>Your game statistics</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<PlayerStats
-						bestScore={bestScore}
-						setBestScore={setBestScore}
-						averageScore={averageScore}
-						setAverageScore={setAverageScore}
-						gamesPlayed={gamesPlayed}
-						setGamesPlayed={setGamesPlayed}
-					/>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button
-						variant="danger"
-						onClick={resetStats}
-						className="me-auto"
-					>
-						Reset Stats
-					</Button>
-					<Button variant="secondary" onClick={handleClose}>
-						Close
-					</Button>
-				</Modal.Footer>
-			</Modal>
+
 			<Row>
 				<Col className="text-center justify-content-center">
 					<h1
@@ -178,15 +151,38 @@ function Home() {
 						)
 					) : (
 						// if game is has not started
-
-						<Button
-							size="lg"
-							id="gradient-box"
-							className="mt-5 mb-4"
-							onClick={handleStartGameButtonClick}
+						<Container
+							className="d-grid"
+							style={{
+								height: "178.35px",
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "center",
+								alignItems: "center",
+							}}
 						>
-							Start Game
-						</Button>
+							<Row>
+								<Col>
+									<Button
+										size="lg"
+										id="gradient-box"
+										onClick={handleStartGameButtonClick}
+									>
+										Start Game
+									</Button>
+								</Col>
+							</Row>
+							<Row>
+								<Col>
+									<Button
+										variant="info"
+										onClick={() => setShowGameRules(true)}
+									>
+										How To Play
+									</Button>
+								</Col>
+							</Row>
+						</Container>
 					)}
 					<Container className="py-5">
 						<Slider color="red" />

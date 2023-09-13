@@ -1,17 +1,25 @@
 import React, { useEffect } from "react";
-import { useGameStatus, useAccuracy } from "./GameContext";
+import { useGameStatus, useAccuracy, useStatistics } from "./GameContext";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-function PlayerStats(props) {
+function PlayerStats() {
 	const { roundEnded } = useGameStatus();
 	const { accuracy } = useAccuracy();
+	const {
+		bestScore,
+		setBestScore,
+		averageScore,
+		setAverageScore,
+		gamesPlayed,
+		setGamesPlayed,
+	} = useStatistics();
 
 	// update game count
 	useEffect(() => {
 		if (roundEnded) {
-			localStorage.setItem("gamesPlayed", props.gamesPlayed + 1);
-			props.setGamesPlayed((currentVal) => {
+			localStorage.setItem("gamesPlayed", gamesPlayed + 1);
+			setGamesPlayed((currentVal) => {
 				return currentVal + 1;
 			});
 		}
@@ -23,32 +31,29 @@ function PlayerStats(props) {
 			return;
 		}
 		// update accuracy
-		if (props.gamesPlayed === 1) {
+		if (gamesPlayed === 1) {
 			localStorage.setItem("averageScore", `${accuracy}%`);
-			props.setAverageScore(accuracy);
-		} else if (props.gamesPlayed > 1) {
-			const currentAverageDecimal = props.averageScore / 100;
+			setAverageScore(accuracy);
+		} else if (gamesPlayed > 1) {
+			const currentAverageDecimal = averageScore / 100;
 			const newGameScore = accuracy / 100;
 			const updatedAverageDecimal =
-				(currentAverageDecimal + newGameScore) / props.gamesPlayed;
+				(currentAverageDecimal + newGameScore) / gamesPlayed;
 			const updatedAveragePercent = Math.round(
 				updatedAverageDecimal * 100
 			);
 
 			localStorage.setItem("averageScore", `${updatedAveragePercent}`);
-			props.setAverageScore(updatedAveragePercent);
+			setAverageScore(updatedAveragePercent);
 		}
 
 		// update personal best score
-		if (
-			props.gamesPlayed === 1 ||
-			(accuracy > props.bestScore && props.gamesPlayed > 1)
-		) {
+		if (gamesPlayed === 1 || (accuracy > bestScore && gamesPlayed > 1)) {
 			localStorage.setItem("bestScore", `${accuracy}%`);
-			props.setBestScore(accuracy);
+			setBestScore(accuracy);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [roundEnded, props.gamesPlayed]);
+	}, [roundEnded, gamesPlayed]);
 
 	useEffect(() => {
 		if (localStorage.getItem("averageScore") === null) {
@@ -60,31 +65,18 @@ function PlayerStats(props) {
 		if (localStorage.getItem("gamesPlayed") === null) {
 			localStorage.setItem("gamesPlayed", 0);
 		}
-		props.setAverageScore(parseInt(localStorage.getItem("averageScore")));
-		props.setBestScore(parseInt(localStorage.getItem("bestScore")));
-		props.setGamesPlayed(parseInt(localStorage.getItem("gamesPlayed")));
-	}, [props]);
+		setAverageScore(parseInt(localStorage.getItem("averageScore")));
+		setBestScore(parseInt(localStorage.getItem("bestScore")));
+		setGamesPlayed(parseInt(localStorage.getItem("gamesPlayed")));
+	}, [setAverageScore, setBestScore, setGamesPlayed]);
 
 	return (
 		<Container className="pe-0">
-			<Row
-			// style={{
-			// 	color: themeIsDark ? "#FFFFFF" : "#121212",
-			// }}
-			>
-				Best Score: {props.bestScore === 0 ? "---" : props.bestScore}%
+			<Row>Best Score: {bestScore === 0 ? "---" : bestScore}%</Row>
+			<Row>
+				Average Score: {averageScore === 0 ? "---" : averageScore}%
 			</Row>
-			<Row
-			// style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
-			>
-				Average Score:{" "}
-				{props.averageScore === 0 ? "---" : props.averageScore}%
-			</Row>
-			<Row
-			// style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
-			>
-				Games Played: {props.gamesPlayed}
-			</Row>
+			<Row>Games Played: {gamesPlayed}</Row>
 		</Container>
 	);
 }

@@ -6,6 +6,11 @@ const CurrentColorContext = React.createContext();
 const TimerContext = React.createContext();
 const ThemeContext = React.createContext();
 const AccuracyContext = React.createContext();
+const StatisticsContext = React.createContext();
+
+export function useStatistics() {
+	return useContext(StatisticsContext);
+}
 export function useAccuracy() {
 	return useContext(AccuracyContext);
 }
@@ -34,6 +39,10 @@ export function GameProvider({ children }) {
 	const [gameStarted, setGameStarted] = useState(false);
 	const [timer, setTimer] = useState("00:30");
 	const [accuracy, setAccuracy] = useState();
+
+	const [bestScore, setBestScore] = useState(null);
+	const [averageScore, setAverageScore] = useState(0);
+	const [gamesPlayed, setGamesPlayed] = useState(0);
 
 	const Ref = useRef(null);
 	function getTimeRemaining(e) {
@@ -112,29 +121,40 @@ export function GameProvider({ children }) {
 			>
 				<TimerContext.Provider value={{ timer, initializeTimer }}>
 					<AccuracyContext.Provider value={{ accuracy, setAccuracy }}>
-						<CurrentColorContext.Provider
+						<StatisticsContext.Provider
 							value={{
-								redValueInput,
-								greenValueInput,
-								blueValueInput,
-								setRedValueInput,
-								setGreenValueInput,
-								setBlueValueInput,
+								bestScore,
+								setBestScore,
+								averageScore,
+								setAverageScore,
+								gamesPlayed,
+								setGamesPlayed,
 							}}
 						>
-							<RandomColorContext.Provider
+							<CurrentColorContext.Provider
 								value={{
-									redValueTarget,
-									greenValueTarget,
-									blueValueTarget,
-									setRedValueTarget,
-									setGreenValueTarget,
-									setBlueValueTarget,
+									redValueInput,
+									greenValueInput,
+									blueValueInput,
+									setRedValueInput,
+									setGreenValueInput,
+									setBlueValueInput,
 								}}
 							>
-								{children}
-							</RandomColorContext.Provider>
-						</CurrentColorContext.Provider>
+								<RandomColorContext.Provider
+									value={{
+										redValueTarget,
+										greenValueTarget,
+										blueValueTarget,
+										setRedValueTarget,
+										setGreenValueTarget,
+										setBlueValueTarget,
+									}}
+								>
+									{children}
+								</RandomColorContext.Provider>
+							</CurrentColorContext.Provider>
+						</StatisticsContext.Provider>
 					</AccuracyContext.Provider>
 				</TimerContext.Provider>
 			</GameStatusContext.Provider>
