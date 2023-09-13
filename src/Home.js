@@ -77,7 +77,10 @@ function Home() {
 				minHeight: "100vh",
 			}}
 		>
-			<Row className="justify-content-between pb-5">
+			<Row
+				className="justify-content-between pb-5"
+				style={{ height: "101px" }}
+			>
 				<Col xs="auto" className="ps-0">
 					<ToggleTheme />
 				</Col>
