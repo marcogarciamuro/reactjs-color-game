@@ -53,8 +53,8 @@
   height: 16px;
 }
 
-#gradient-box {
-  background-image: linear-gradient(to bottom right, red, orange, yellow, green, blue, indigo, violet);
+#start-game-button {
+  text-shadow: 2px 2px 6px black;
 }
 
 .color-text {

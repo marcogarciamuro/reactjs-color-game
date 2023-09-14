@@ -89,7 +89,7 @@ function Home() {
 					) : (
 						<Button
 							onClick={handleShowGameStatsModal}
-							variant="outline-primary"
+							variant="warning"
 						>
 							<FontAwesomeIcon
 								icon={faRankingStar}
@@ -160,8 +160,9 @@ function Home() {
 								<Col>
 									<Button
 										size="lg"
-										id="gradient-box"
+										id="start-game-button"
 										onClick={handleStartGameButtonClick}
+										variant="danger"
 									>
 										Start Game
 									</Button>
