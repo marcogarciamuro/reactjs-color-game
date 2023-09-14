@@ -6,6 +6,10 @@
   background-color: #121212;
 }
 
+body {
+  overflow: hidden;
+}
+
 .custom-range-slider .range-slider__thumb[data-lower] {
   width: 0;
 }
@@ -63,8 +67,8 @@
 
 .color-block {
   display: flex;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 10px;
   border-style: solid;
   border-color: black;

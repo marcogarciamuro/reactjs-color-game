@@ -105,7 +105,10 @@ function Home() {
 					{gameStarted ? (
 						// if round is ongoing
 						!roundEnded ? (
-							<Container className="px-0">
+							<Container
+								className="px-0"
+								style={{ height: "170px" }}
+							>
 								<Timer />
 								<Row>
 									<Col className="d-flex justify-content-end">
@@ -118,7 +121,7 @@ function Home() {
 							</Container>
 						) : (
 							// if round ended
-							<Container>
+							<Container style={{ height: "170px" }}>
 								<div
 									style={{
 										visibility: roundEnded
@@ -147,16 +150,16 @@ function Home() {
 					) : (
 						// if game is has not started
 						<Container
-							className="d-grid"
+							className="d-grid gap-4"
 							style={{
-								height: "178.35px",
+								height: "170px",
 								display: "flex",
 								flexDirection: "column",
 								justifyContent: "center",
 								alignItems: "center",
 							}}
 						>
-							<Row>
+							<Row className="align-self-end">
 								<Col>
 									<Button
 										size="lg"
@@ -168,7 +171,7 @@ function Home() {
 									</Button>
 								</Col>
 							</Row>
-							<Row>
+							<Row className="align-self-start">
 								<Col>
 									<Button
 										variant="info"
