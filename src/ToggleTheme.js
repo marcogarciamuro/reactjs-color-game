@@ -9,16 +9,16 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 function ToggleTheme() {
-	const { setThemeIsDark } = useTheme();
-	const [toggleValue, setToggleValue] = useState("1");
+	const { setTheme } = useTheme();
+	const [toggleValue, setToggleValue] = useState("0");
 
 	const handleSetLightTheme = () => {
 		setToggleValue("0");
-		setThemeIsDark(false);
+		setTheme("light");
 	};
 	function handleSetDarkTheme() {
 		setToggleValue("1");
-		setThemeIsDark(true);
+		setTheme("dark");
 	}
 
 	return (

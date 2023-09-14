@@ -1,3 +1,11 @@
+#light {
+  background-color: white;
+}
+
+#dark {
+  background-color: #121212;
+}
+
 .custom-range-slider .range-slider__thumb[data-lower] {
   width: 0;
 }

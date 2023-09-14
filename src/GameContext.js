@@ -96,7 +96,7 @@ export function GameProvider({ children }) {
 
 	const [roundEnded, setRoundEnded] = useState(false);
 
-	const [themeIsDark, setThemeIsDark] = useState(true);
+	const [theme, setTheme] = useState("light");
 
 	useEffect(() => {
 		if (timer === "00:00") {
@@ -107,8 +107,8 @@ export function GameProvider({ children }) {
 	return (
 		<ThemeContext.Provider
 			value={{
-				themeIsDark,
-				setThemeIsDark,
+				theme,
+				setTheme,
 			}}
 		>
 			<GameStatusContext.Provider

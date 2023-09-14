@@ -24,12 +24,12 @@ import Footer from "./Footer";
 import PlayerStatsModal from "./PlayerStatsModal";
 
 function Home() {
+	const { theme } = useTheme();
 	const { gameStarted, roundEnded, setGameStarted, setRoundEnded } =
 		useGameStatus();
 	const { initializeTimer } = useTimer();
 	const { setRedValueInput, setGreenValueInput, setBlueValueInput } =
 		useCurrentColor();
-	const { themeIsDark } = useTheme();
 	const [showGameStatsModal, setShowGameStatsModal] = useState(false);
 	const [showStatsResetToast, setShowStatsResetToast] = useState(false);
 	const [showGameRules, setShowGameRules] = useState(false);
@@ -58,9 +58,9 @@ function Home() {
 	return (
 		<Container
 			fluid
+			id={theme}
 			className="d-flex flex-column pt-2 px-4"
 			style={{
-				backgroundColor: themeIsDark ? "#121212" : "#FFFFFF",
 				minHeight: "100vh",
 			}}
 		>
@@ -101,12 +101,7 @@ function Home() {
 
 			<Row>
 				<Col className="text-center justify-content-center">
-					<h1
-						className="mb-3"
-						style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
-					>
-						The Color Matching Game
-					</h1>
+					<h1 className="mb-3">The Color Matching Game</h1>
 					{gameStarted ? (
 						// if round is ongoing
 						!roundEnded ? (

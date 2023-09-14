@@ -3,7 +3,6 @@ import {
 	useGameStatus,
 	useCurrentColor,
 	useRandomColor,
-	useTheme,
 	useAccuracy,
 } from "./GameContext";
 
@@ -15,7 +14,6 @@ function ColorDifference() {
 
 	const { roundEnded } = useGameStatus();
 
-	const { themeIsDark } = useTheme();
 	const { accuracy, setAccuracy } = useAccuracy();
 
 	function getColorAccuracy(colorValueInput, colorValueTarget) {
@@ -54,14 +52,7 @@ function ColorDifference() {
 		setAccuracy,
 	]);
 
-	return (
-		<div
-			className="mb-2"
-			style={{ color: themeIsDark ? "#FFFFFF" : "#121212" }}
-		>
-			Accuracy: {accuracy}%
-		</div>
-	);
+	return <div className="mb-2">Accuracy: {accuracy}%</div>;
 }
 
 export default ColorDifference;
