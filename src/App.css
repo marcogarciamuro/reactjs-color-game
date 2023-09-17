@@ -1,13 +1,112 @@
+body {
+  overflow: hidden;
+}
+
 #light {
   background-color: white;
 }
 
 #dark {
-  background-color: #121212;
+  background-color: rgb(23, 25, 26);
 }
 
-body {
-  overflow: hidden;
+#light footer svg {
+  color: black;
+}
+
+#dark .color-block {
+  border-color: rgb(133, 123, 109);
+}
+
+#dark h1, 
+#dark .modal-title,
+#dark .color-block-label,
+#dark footer span,
+#dark .modal-body,
+#dark .accuracy-text {
+  color: #c7c3bd;
+}
+
+#dark footer svg {
+ color: rgb(220, 219, 216)
+}
+
+#dark .btn-check:checked + .btn,
+.toggle-theme-button.btn.active,
+.toggle-theme-button.btn.show,
+.toggle-theme-button.btn:first-child:active,
+:not(.btn-check) + .toggle-theme-button.btn:active {
+  color: #dcdbd8;
+  background-color: #136740;
+  border-color: #1ea668;
+}
+
+#dark .btn-primary {
+  background-color: #024cba;
+  border-color: #0143a5;
+}
+
+#dark .btn-primary:hover {
+  background-color: #0947a3;
+}
+
+#dark .btn-outline-dark {
+  border-color: #7a7164;
+}
+
+#dark .btn-warning {
+  background-color: #8f6a00;
+  border-color: #a77d00;
+}
+
+#dark .btn-warning:hover {
+  background-color: #7e5f00;
+}
+
+#dark svg {
+  color: #dcdbd8;
+}
+
+#dark .modal-header {
+  border-bottom: 1px solid #353a3c;
+}
+
+#dark .modal-footer {
+  border-top: 1px solid #353a3c;
+}
+
+#dark .border-top {
+  border-top: 1px solid #353a3c !important;
+}
+
+#dark .modal-header .btn-close {
+  background: transparent url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCI+PGRlZnM+PGZpbHRlciBpZD0iZGFya3JlYWRlci1pbWFnZS1maWx0ZXIiPjxmZUNvbG9yTWF0cml4IHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwLjIzNiAtMC41ODMgLTAuNjM4IDAuMDAwIDAuOTgzIC0wLjYxMyAwLjI3NCAtMC42MzEgMC4wMDAgMC45NjkgLTAuNjA0IC0wLjU3OSAwLjIzOCAwLjAwMCAwLjk0NCAwLjAwMCAwLjAwMCAwLjAwMCAxLjAwMCAwLjAwMCIgLz48L2ZpbHRlcj48L2RlZnM+PGltYWdlIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWx0ZXI9InVybCgjZGFya3JlYWRlci1pbWFnZS1maWx0ZXIpIiB4bGluazpocmVmPSJkYXRhOmltYWdlL3N2Zyt4bWw7Y2hhcnNldD11dGYtOCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTYgMTYnJTNFJTNDcGF0aCBkPSdNLjI5My4yOTNhMSAxIDAgMCAxIDEuNDE0IDBMOCA2LjU4NiAxNC4yOTMuMjkzYTEgMSAwIDEgMSAxLjQxNCAxLjQxNEw5LjQxNCA4bDYuMjkzIDYuMjkzYTEgMSAwIDAgMS0xLjQxNCAxLjQxNEw4IDkuNDE0bC02LjI5MyA2LjI5M2ExIDEgMCAwIDEtMS40MTQtMS40MTRMNi41ODYgOCAuMjkzIDEuNzA3YTEgMSAwIDAgMSAwLTEuNDE0eicvJTNFJTNDL3N2ZyUzRSIgLz48L3N2Zz4=") center/1em auto no-repeat;
+}
+
+#dark .modal-content {
+  background-color: #17191a;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(133, 123, 109, 0.17);
+}
+
+#dark .toast {
+  background-color: rgba(27, 28, 29, 0.85);
+  border: 1px solid rgba(133, 123, 109, 0.17);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+#dark .toast-header {
+  color: rgba(199, 195, 189, 0.75);
+  background-color: rgba(27, 28, 29, 0.85);
+  border-bottom: 1px solid rgba(133, 123, 109, 0.17);
+}
+
+#dark .toast-header .btn-close {
+  background: transparent url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCI+PGRlZnM+PGZpbHRlciBpZD0iZGFya3JlYWRlci1pbWFnZS1maWx0ZXIiPjxmZUNvbG9yTWF0cml4IHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwLjIzNiAtMC41ODMgLTAuNjM4IDAuMDAwIDAuOTgzIC0wLjYxMyAwLjI3NCAtMC42MzEgMC4wMDAgMC45NjkgLTAuNjA0IC0wLjU3OSAwLjIzOCAwLjAwMCAwLjk0NCAwLjAwMCAwLjAwMCAwLjAwMCAxLjAwMCAwLjAwMCIgLz48L2ZpbHRlcj48L2RlZnM+PGltYWdlIHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiBmaWx0ZXI9InVybCgjZGFya3JlYWRlci1pbWFnZS1maWx0ZXIpIiB4bGluazpocmVmPSJkYXRhOmltYWdlL3N2Zyt4bWwsJTNjc3ZnIHhtbG5zPSUyN2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJTI3IHZpZXdCb3g9JTI3MCAwIDE2IDE2JTI3IGZpbGw9JTI3JTIzMDAwJTI3JTNlJTNjcGF0aCBkPSUyN00uMjkzLjI5M2ExIDEgMCAwIDEgMS40MTQgMEw4IDYuNTg2IDE0LjI5My4yOTNhMSAxIDAgMSAxIDEuNDE0IDEuNDE0TDkuNDE0IDhsNi4yOTMgNi4yOTNhMSAxIDAgMCAxLTEuNDE0IDEuNDE0TDggOS40MTRsLTYuMjkzIDYuMjkzYTEgMSAwIDAgMS0xLjQxNC0xLjQxNEw2LjU4NiA4IC4yOTMgMS43MDdhMSAxIDAgMCAxIDAtMS40MTR6JTI3LyUzZSUzYy9zdmclM2UiIC8+PC9zdmc+") center/1em auto no-repeat;
+}
+
+#dark .toast-body {
+  color: white;
 }
 
 .custom-range-slider .range-slider__thumb[data-lower] {
@@ -59,6 +158,18 @@ body {
 
 #start-game-button {
   text-shadow: 2px 2px 6px black;
+}
+
+#dark .btn-info {
+  color: #dcdbd8; 
+  background-color: #0a9ab6;
+  border-color: #0a819a;
+}
+
+#dark .btn-danger {
+  color: #dcdbd8; 
+  background-color: #8d1923;
+  border-color: #94242f;
 }
 
 .color-text {

@@ -3,9 +3,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import PlayerStats from "./PlayerStats";
 import { useStatistics } from "./GameContext";
+import { useTheme } from "./GameContext";
 
 function PlayerStatsModal(props) {
 	const { setGamesPlayed, setBestScore, setAverageScore } = useStatistics();
+	const { theme } = useTheme();
 	function resetStats() {
 		localStorage.setItem("gamesPlayed", "0");
 		localStorage.setItem("bestScore", "0");
@@ -17,7 +19,12 @@ function PlayerStatsModal(props) {
 		props.setShowStatsResetToast(true);
 	}
 	return (
-		<Modal show={props.show} onHide={props.handleClose} size="sm">
+		<Modal
+			id={theme}
+			show={props.show}
+			onHide={props.handleClose}
+			size="sm"
+		>
 			<Modal.Header closeButton>
 				<Modal.Title>Your game statistics</Modal.Title>
 			</Modal.Header>

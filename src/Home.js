@@ -11,7 +11,7 @@ import ToggleTheme from "./ToggleTheme";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRankingStar } from "@fortawesome/free-solid-svg-icons";
 import StatsResetToast from "./StatsResetToast";
-import Rules from "./Rules";
+import Help from "./Help";
 
 import {
 	useTimer,
@@ -64,10 +64,7 @@ function Home() {
 				minHeight: "100vh",
 			}}
 		>
-			<Rules
-				show={showGameRules}
-				onHide={() => setShowGameRules(false)}
-			/>
+			<Help show={showGameRules} onHide={() => setShowGameRules(false)} />
 			<PlayerStatsModal
 				show={showGameStatsModal}
 				handleClose={handleCloseGameStatsModal}
@@ -174,6 +171,7 @@ function Home() {
 							<Row className="align-self-start">
 								<Col>
 									<Button
+										id="help-button"
 										variant="info"
 										onClick={() => setShowGameRules(true)}
 									>

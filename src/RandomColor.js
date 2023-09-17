@@ -40,7 +40,9 @@ function RandomColor() {
 
 	return (
 		<div>
-			{!roundEnded && <div>Target Color</div>}
+			{!roundEnded && (
+				<div className="color-block-label">Target Color</div>
+			)}
 			<div
 				className={`color-block ${
 					roundEnded ? "move-block-right" : ""

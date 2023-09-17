@@ -7,7 +7,9 @@ function CurrentColor(props) {
 	const { roundEnded } = useGameStatus();
 	return (
 		<div>
-			{!roundEnded && <div>Current Color</div>}
+			{!roundEnded && (
+				<div className="color-block-label">Current Color</div>
+			)}
 			<div
 				className={`color-block ${
 					roundEnded ? "move-block-left" : ""

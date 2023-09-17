@@ -52,7 +52,7 @@ function ColorDifference() {
 		setAccuracy,
 	]);
 
-	return <div className="mb-2">Accuracy: {accuracy}%</div>;
+	return <div className="accuracy-text mb-2">Accuracy: {accuracy}%</div>;
 }
 
 export default ColorDifference;

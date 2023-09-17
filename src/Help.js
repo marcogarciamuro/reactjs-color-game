@@ -3,10 +3,12 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
+import { useTheme } from "./GameContext";
 
-function Rules(props) {
+function Help(props) {
+	const { theme } = useTheme();
 	return (
-		<Modal show={props.show} onHide={props.onHide} centered>
+		<Modal id={theme} show={props.show} onHide={props.onHide}>
 			<Modal.Header closeButton>
 				<Modal.Title className="ms-auto">
 					How to play{" "}
@@ -37,4 +39,4 @@ function Rules(props) {
 	);
 }
 
-export default Rules;
+export default Help;

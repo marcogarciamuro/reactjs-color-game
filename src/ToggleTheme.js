@@ -28,13 +28,12 @@ function ToggleTheme() {
 				overlay={<Tooltip> Set Light Theme</Tooltip>}
 			>
 				<ToggleButton
+					className="toggle-theme-button"
 					key={0}
 					id={`radio-${0}`}
 					type="radio"
 					variant={
-						toggleValue === "0"
-							? "outline-success"
-							: "outline-light"
+						toggleValue === "0" ? "outline-success" : "outline-dark"
 					}
 					name="radio"
 					value="0"
@@ -49,6 +48,7 @@ function ToggleTheme() {
 				overlay={<Tooltip> Set Dark Theme</Tooltip>}
 			>
 				<ToggleButton
+					className="toggle-theme-button"
 					key={1}
 					id={`radio-${1}`}
 					type="radio"
@@ -60,12 +60,7 @@ function ToggleTheme() {
 					checked={toggleValue === "1"}
 					onChange={handleSetDarkTheme}
 				>
-					<FontAwesomeIcon
-						icon={faMoon}
-						style={{
-							color: "black",
-						}}
-					></FontAwesomeIcon>
+					<FontAwesomeIcon icon={faMoon}></FontAwesomeIcon>
 				</ToggleButton>
 			</OverlayTrigger>
 		</ButtonGroup>
