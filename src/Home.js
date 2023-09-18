@@ -181,13 +181,13 @@ function Home() {
 							</Row>
 						</Container>
 					)}
-					<Container className="py-5">
+					<Container className="pt-4 pb-5 py-sm-5">
 						<Slider color="red" />
 					</Container>
-					<Container className="py-5">
+					<Container className="py-4 py-sm-5">
 						<Slider color="green" />
 					</Container>
-					<Container className="pt-5 pb-4">
+					<Container className="pt-5 pb-3 pb-sm-4">
 						<Slider color="blue" />
 					</Container>
 				</Col>
