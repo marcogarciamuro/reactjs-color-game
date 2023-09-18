@@ -9,15 +9,23 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 function ToggleTheme() {
+	function getThemePreferenceKey() {
+		if (localStorage.getItem("theme") === "light") {
+			return "0";
+		}
+		return "1";
+	}
 	const { setTheme } = useTheme();
-	const [toggleValue, setToggleValue] = useState("0");
+	const [toggleValue, setToggleValue] = useState(getThemePreferenceKey());
 
 	const handleSetLightTheme = () => {
 		setToggleValue("0");
 		setTheme("light");
+		localStorage.setItem("theme", "light");
 	};
 	function handleSetDarkTheme() {
 		setToggleValue("1");
+		localStorage.setItem("theme", "dark");
 		setTheme("dark");
 	}
 

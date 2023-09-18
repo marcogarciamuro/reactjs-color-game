@@ -96,7 +96,14 @@ export function GameProvider({ children }) {
 
 	const [roundEnded, setRoundEnded] = useState(false);
 
-	const [theme, setTheme] = useState("light");
+	const [theme, setTheme] = useState(getThemePreference());
+
+	function getThemePreference() {
+		if (localStorage.getItem("theme") === null) {
+			return "light";
+		}
+		return localStorage.getItem("theme");
+	}
 
 	useEffect(() => {
 		if (timer === "00:00") {
