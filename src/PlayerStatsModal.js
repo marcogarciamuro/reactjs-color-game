@@ -19,12 +19,7 @@ function PlayerStatsModal(props) {
 		props.setShowStatsResetToast(true);
 	}
 	return (
-		<Modal
-			id={theme}
-			show={props.show}
-			onHide={props.handleClose}
-			size="sm"
-		>
+		<Modal id={theme} show={props.show} onHide={props.handleClose} size="sm">
 			<Modal.Header closeButton>
 				<Modal.Title>Your game statistics</Modal.Title>
 			</Modal.Header>
@@ -32,11 +27,7 @@ function PlayerStatsModal(props) {
 				<PlayerStats />
 			</Modal.Body>
 			<Modal.Footer>
-				<Button
-					variant="danger"
-					onClick={resetStats}
-					className="me-auto"
-				>
+				<Button variant="danger" onClick={resetStats} className="me-auto">
 					Reset Stats
 				</Button>
 				<Button variant="secondary" onClick={props.handleClose}>

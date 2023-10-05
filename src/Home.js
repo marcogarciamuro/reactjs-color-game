@@ -33,6 +33,7 @@ function Home() {
 	const [showGameStatsModal, setShowGameStatsModal] = useState(false);
 	const [showStatsResetToast, setShowStatsResetToast] = useState(false);
 	const [showGameRules, setShowGameRules] = useState(false);
+	const [colorToMatch, setColorToMatch] = useState();
 
 	function handleNextRoundButtonClick() {
 		initializeTimer();
@@ -104,12 +105,17 @@ function Home() {
 						!roundEnded ? (
 							<Container
 								className="px-0"
-								style={{ height: "170px" }}
+								style={{
+									height: "170px",
+								}}
 							>
 								<Timer />
 								<Row>
 									<Col className="d-flex justify-content-end">
-										<RandomColor />
+										<RandomColor
+											colorToMatch={colorToMatch}
+											setColorToMatch={setColorToMatch}
+										/>
 									</Col>
 									<Col className="d-flex justify-content-start">
 										<CurrentColor />
@@ -118,25 +124,24 @@ function Home() {
 							</Container>
 						) : (
 							// if round ended
-							<Container style={{ height: "170px" }}>
-								<div
-									style={{
-										visibility: roundEnded
-											? "visible"
-											: "hidden",
-									}}
+							<Container
+								style={{
+									height: "170px",
+								}}
+							>
+								<Button
+									className="mb-2"
+									onClick={handleNextRoundButtonClick}
 								>
-									<Button
-										className="mb-2"
-										onClick={handleNextRoundButtonClick}
-									>
-										Next Round
-									</Button>
-									<ColorDifference />
-								</div>
+									Next Round
+								</Button>
+								<ColorDifference />
 								<Row>
 									<Col className="d-flex justify-content-end">
-										<RandomColor />
+										<RandomColor
+											colorToMatch={colorToMatch}
+											setColorToMatch={setColorToMatch}
+										/>
 									</Col>
 									<Col className="d-flex justify-content-start">
 										<CurrentColor />
@@ -181,6 +186,7 @@ function Home() {
 							</Row>
 						</Container>
 					)}
+					{/* RGB Sliders */}
 					<Container className="pt-4 pb-5 py-sm-5">
 						<Slider color="red" />
 					</Container>

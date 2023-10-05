@@ -14,7 +14,7 @@
   border-color: rgb(133, 123, 109);
 }
 
-#dark h1, 
+#dark h1,
 #dark .modal-title,
 #dark .color-block-label,
 #dark footer span,
@@ -24,14 +24,14 @@
 }
 
 #dark footer svg {
- color: rgb(220, 219, 216)
+  color: rgb(220, 219, 216)
 }
 
-#dark .btn-check:checked + .btn,
+#dark .btn-check:checked+.btn,
 .toggle-theme-button.btn.active,
 .toggle-theme-button.btn.show,
 .toggle-theme-button.btn:first-child:active,
-:not(.btn-check) + .toggle-theme-button.btn:active {
+:not(.btn-check)+.toggle-theme-button.btn:active {
   color: #dcdbd8;
   background-color: #136740;
   border-color: #1ea668;
@@ -105,10 +105,14 @@
   color: white;
 }
 
+.custom-range-slider {
+  background: rgb(41, 45, 47) !important;
+}
+
 .custom-range-slider .range-slider__thumb[data-lower] {
   width: 0;
 }
-  
+
 .custom-range-slider .range-slider__range {
   border-radius: 6px;
 }
@@ -118,7 +122,7 @@
   background: red;
   transition: height 0.3s;
 }
-    
+
 #range-slider-red .range-slider__thumb {
   background: red;
   transition: transform 0.3s;
@@ -128,7 +132,7 @@
   background: green;
   transition: height 0.3s;
 }
-    
+
 #range-slider-green .range-slider__thumb {
   background: green;
   transition: transform 0.3s;
@@ -138,7 +142,7 @@
   background: blue;
   transition: height 0.3s;
 }
-    
+
 #range-slider-blue .range-slider__thumb {
   background: blue;
   transition: transform 0.3s;
@@ -147,7 +151,7 @@
 .custom-range-slider .range-slider__thumb[data-active] {
   transform: translate(-50%, -50%) scale(1.25);
 }
-        
+
 .custom-range-slider .range-slider__range[data-active] {
   height: 16px;
 }
@@ -157,13 +161,13 @@
 }
 
 #dark .btn-info {
-  color: #dcdbd8; 
+  color: #dcdbd8;
   background-color: #0a9ab6;
   border-color: #0a819a;
 }
 
 #dark .btn-danger {
-  color: #dcdbd8; 
+  color: #dcdbd8;
   background-color: #8d1923;
   border-color: #94242f;
 }
@@ -180,25 +184,35 @@
   border-style: solid;
   border-color: black;
   position: relative;
-  padding:10px;
+  padding: 10px;
 }
 
 .move-block-left {
-  animation:move_left 3s ease-in-out forwards;
+  animation: move_left 3s ease-in-out forwards;
 }
 
 .move-block-right {
-  animation:move_right 3s ease-in-out forwards;
+  animation: move_right 3s ease-in-out forwards;
 }
 
 @keyframes move_left {
-  0% { transform: translateX(0px);}
-  100% { transform: translateX(-25%);}
+  0% {
+    transform: translateX(0px);
+  }
+
+  100% {
+    transform: translateX(-25%);
+  }
 }
 
 @keyframes move_right {
-  0% { transform: translateX(0);}
-  100% { transform: translateX(25%);}
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(25%);
+  }
 }
 
 @font-face {

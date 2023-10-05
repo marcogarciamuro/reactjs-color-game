@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRandomColor, useTimer, useGameStatus } from "./GameContext";
 
-function RandomColor() {
+function RandomColor(props) {
 	const { setRedValueTarget, setGreenValueTarget, setBlueValueTarget } =
 		useRandomColor();
 
@@ -21,7 +21,7 @@ function RandomColor() {
 
 	const getColorValue = () => Math.floor(Math.random() * 256);
 
-	const [colorToMatch, setColorToMatch] = useState();
+	const setColorToMatch = props.setColorToMatch;
 
 	useEffect(() => {
 		function getNewColorHex() {
@@ -36,19 +36,23 @@ function RandomColor() {
 			return rgbToHex(color.r, color.g, color.b);
 		}
 		if (timer === "00:30") setColorToMatch(getNewColorHex());
-	}, [timer, setBlueValueTarget, setGreenValueTarget, setRedValueTarget]);
+	}, [
+		setColorToMatch,
+		timer,
+		setBlueValueTarget,
+		setGreenValueTarget,
+		setRedValueTarget,
+	]);
 
 	return (
 		<div>
-			{!roundEnded && (
-				<div className="color-block-label">Target Color</div>
-			)}
+			{!roundEnded && <div className="color-block-label">Target Color</div>}
 			<div
 				className={`color-block ${
 					roundEnded ? "move-block-right" : ""
 				} align-items-center px-2`}
 				style={{
-					backgroundColor: colorToMatch,
+					backgroundColor: props.colorToMatch,
 				}}
 			></div>
 		</div>
