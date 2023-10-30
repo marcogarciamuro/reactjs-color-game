@@ -19,12 +19,12 @@ function Footer() {
 					className="justify-content-end list-unstyled d-flex"
 				>
 					<Nav.Item>
-						<Nav.Link href="#">
+						<Nav.Link href="https://github.com/marcogarciamuro" target="_blank">
 							<Github size={24} />
 						</Nav.Link>
 					</Nav.Item>
 					<Nav.Item>
-						<Nav.Link href="#">
+						<Nav.Link href="https://www.linkedin.com/in/marco-garcia-muro/" target="_blank">
 							<Linkedin size={24} />
 						</Nav.Link>
 					</Nav.Item>
