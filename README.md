@@ -2,7 +2,8 @@
 
 A ReactJS project that challenges users to combine RGB values to visually match a randomly generated target color.
 
-[Play The Color Matching Game](matchthiscolor.netlify.app)
+
+[Play the Color Matching Game](https://matchthiscolor.netlify.app)
 
 ## Background
 
